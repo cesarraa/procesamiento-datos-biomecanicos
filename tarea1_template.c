@@ -43,8 +43,8 @@ void contar_metadatos(const char carpeta[], RegistroCSV registros[], int total);
 //funcion que lee los datos
 void leer_campos(const char carpeta[], RegistroCSV registros[], int total);
 //funciones  a implementar
-//void leer_valores(const char carpeta[], RegistroCSV registros[], int total);
-//void imprimir_metadatos(const RegistroCSV registros[], int total);
+void leer_valores(const char carpeta[], RegistroCSV registros[], int total);
+void imprimir_metadatos(const RegistroCSV registros[], int total);
 
 // Funciones de soporte
 void unir_ruta(char destino[], const char carpeta[], const char fichero[]);
@@ -282,4 +282,36 @@ int buscar_campo(const RegistroCSV *registro, const char campo[]) {
     }
 
     return -1;
+}
+
+//-------------------------------------------------------------------------------
+void leer_valores(const char carpeta[], RegistroCSV registros[], int total) {
+    // Vamos iterando por cada fichero
+    for (int i = 0; i < total; i++) {
+        char ruta[MAX_RUTA];
+        char linea[MAX_LINEA];
+        FILE *archivo;
+
+        unir_ruta(ruta, carpeta, registros[i].nombre_fichero);
+        archivo = fopen(ruta, "r");
+        if (archivo == NULL) continue;
+
+        // Ahora iteramos por cada linea del fichero
+        for (int j = 0; j < registros[i].total_metadatos; j++) {
+            if (fgets(linea, sizeof(linea), archivo) == NULL) break;
+
+            quitar_salto_linea(linea);
+
+            if (linea_vacia(linea)) break;
+
+            char campo[MAX_TEXTO];
+            char valor[MAX_TEXTO];
+            if (separar_metadata(linea, campo, valor)) {
+                int indice = buscar_campo(&registros[i], campo);
+                if (indice != -1) {
+                    copiar_texto(registros[i].valores[indice], valor, MAX_TEXTO);
+                }
+            }
+        }
+    }
 }
