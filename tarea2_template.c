@@ -267,27 +267,47 @@ double calcular_longitud_temporal(int total, double fs) {
 
 int buscar_indice_primera_sync(const Datos registros[], int total) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Marcelo Romero
         1. recorrer el arreglo desde el inicio,
         2. encontrar la primera muestra donde sync != 0,
         3. devolver ese indice,
         4. si no hay ninguna, devolver -1.
     */
-    (void)registros;
-    (void)total;
+    int i;
+
+    if (total <= 0) {
+        return -1;
+    }
+
+    for (i = 0; i < total; i++) {
+        if (registros[i].sync != 0) {
+            return i;
+        }
+    }
+
     return -1;
 }
 
 int buscar_indice_ultima_sync(const Datos registros[], int total) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Marcelo Romero
         1. recorrer el arreglo desde el final,
         2. encontrar la ultima muestra donde sync != 0,
         3. devolver ese indice,
         4. si no hay ninguna, devolver -1.
     */
-    (void)registros;
-    (void)total;
+    int i;
+
+    if (total <= 0) {
+        return -1;
+    }
+
+    for (i = total - 1; i >= 0; i--) {
+        if (registros[i].sync != 0) {
+            return i;
+        }
+    }
+
     return -1;
 }
 

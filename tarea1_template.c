@@ -315,3 +315,19 @@ void leer_valores(const char carpeta[], RegistroCSV registros[], int total) {
         }
     }
 }
+
+void imprimir_metadatos(const RegistroCSV registros[], int total) {
+    int i, j;
+
+    for (i = 0; i < total; i++) {
+    	/*se itera sobre cada nombre correspondiente al registro actual*/
+        printf("Archivo: %s\n", registros[i].nombre_fichero);
+        printf("Total de metadatos: %d\n", registros[i].total_metadatos);
+
+        for (j = 0; j < registros[i].total_metadatos; j++) {
+            printf("%s: %s\n", registros[i].campos[j], registros[i].valores[j]);
+        }
+
+        printf("\n");
+    }
+}
