@@ -1,0 +1,22 @@
+int buscar_indice_primera_sync(const Datos registros[], int total) {
+    /*
+        Tarea del estudiante: Marcelo Romero
+        1. recorrer el arreglo desde el inicio,
+        2. encontrar la primera muestra donde sync != 0,
+        3. devolver ese indice,
+        4. si no hay ninguna, devolver -1.
+    */
+    int i;
+
+    if (total <= 0) {
+        return -1;
+    }
+
+    for (i = 0; i < total; i++) {
+        if (registros[i].sync != 0) {
+            return i;
+        }
+    }
+
+    return -1;
+}
