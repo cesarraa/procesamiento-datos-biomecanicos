@@ -240,20 +240,19 @@ int cargar_datos(
 
 void corregir_aceleracion(Datos registros[], int total) {
     /*
-        Tarea del estudiante: Cesar Ramirez
+        Tarea del estudiante:
         1. recorrer todas las muestras,
         2. multiplicar por -1 el valor linear_acceleration_z.
 
         Esta version no modifica nada.
     */
-    for (int i = 0; i < total; i++) {
-        registros[i].linear_acceleration_z *= -1.0;
-    }
+    (void)registros;
+    (void)total;
 }
 
 double calcular_longitud_temporal(int total, double fs) {
     /*
-        Tarea del estudiante: Cesar Ramirez
+        Tarea del estudiante:
         1. verificar que fs sea mayor que cero,
         2. calcular el tiempo total como:
               tiempo = total / fs
@@ -261,12 +260,9 @@ double calcular_longitud_temporal(int total, double fs) {
 
         Mientras no este implementada, devuelve 0.0.
     */
-    if (fs > 0.0) {
-        return total / fs;
-    } else {
-        printf("Frecuencia de muestreo inválida! %.3f Hz\n", fs);
-        return 0.0;
-    }
+    (void)total;
+    (void)fs;
+    return 0.0;
 }
 
 int buscar_indice_primera_sync(const Datos registros[], int total) {
@@ -326,7 +322,7 @@ double calcular_velocidad_marcha(int muestras_sync, double fs) {
 
 double calcular_velocidad_pasos(int pasos, int muestras_pasos, double fs) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Vanessa Ricciardi
         1. verificar que pasos, muestras_pasos y fs sean validos,
         2. calcular el tiempo de la ventana:
               tiempo = muestras_pasos / fs
@@ -335,15 +331,19 @@ double calcular_velocidad_pasos(int pasos, int muestras_pasos, double fs) {
 
         Mientras no este implementada, devuelve 0.0.
     */
-    (void)pasos;
-    (void)muestras_pasos;
-    (void)fs;
-    return 0.0;
+
+    if (pasos < 0 || muestras_pasos <= 0 || fs <= 0.0) {
+        return 0.0;
+    }
+
+    double tiempo = (double)muestras_pasos / fs;
+    return pasos / tiempo;
+
 }
 
 double calcular_longitud_zancada(double velocidad_marcha, double velocidad_pasos) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Vanessa Ricciardi
         1. verificar que velocidad_pasos sea mayor que cero,
         2. calcular:
               longitud = velocidad_marcha / velocidad_pasos
@@ -351,9 +351,14 @@ double calcular_longitud_zancada(double velocidad_marcha, double velocidad_pasos
 
         Mientras no este implementada, devuelve 0.0.
     */
-    (void)velocidad_marcha;
-    (void)velocidad_pasos;
-    return 0.0;
+
+    if (velocidad_pasos <= 0.0) {
+        return 0.0;
+    }
+    
+    double longitud = velocidad_marcha / velocidad_pasos;
+    return longitud;
+
 }
 
 void imprimir_resultados(
