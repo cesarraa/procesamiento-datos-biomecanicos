@@ -342,7 +342,7 @@ double calcular_velocidad_marcha(int muestras_sync, double fs) {
 
 double calcular_velocidad_pasos(int pasos, int muestras_pasos, double fs) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Vanessa Ricciardi
         1. verificar que pasos, muestras_pasos y fs sean validos,
         2. calcular el tiempo de la ventana:
               tiempo = muestras_pasos / fs
@@ -351,15 +351,19 @@ double calcular_velocidad_pasos(int pasos, int muestras_pasos, double fs) {
 
         Mientras no este implementada, devuelve 0.0.
     */
-    (void)pasos;
-    (void)muestras_pasos;
-    (void)fs;
-    return 0.0;
+
+    if (pasos < 0 || muestras_pasos <= 0 || fs <= 0.0) {
+        return 0.0;
+    }
+
+    double tiempo = (double)muestras_pasos / fs;
+    return pasos / tiempo;
+
 }
 
 double calcular_longitud_zancada(double velocidad_marcha, double velocidad_pasos) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Vanessa Ricciardi
         1. verificar que velocidad_pasos sea mayor que cero,
         2. calcular:
               longitud = velocidad_marcha / velocidad_pasos
@@ -367,9 +371,14 @@ double calcular_longitud_zancada(double velocidad_marcha, double velocidad_pasos
 
         Mientras no este implementada, devuelve 0.0.
     */
-    (void)velocidad_marcha;
-    (void)velocidad_pasos;
-    return 0.0;
+
+    if (velocidad_pasos <= 0.0) {
+        return 0.0;
+    }
+    
+    double longitud = velocidad_marcha / velocidad_pasos;
+    return longitud;
+
 }
 
 void imprimir_resultados(
