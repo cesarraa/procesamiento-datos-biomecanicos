@@ -313,21 +313,31 @@ int buscar_indice_ultima_sync(const Datos registros[], int total) {
 
 int contar_transiciones_S3_S0(const Datos registros[], int inicio, int fin) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Mauricio Pecci
         1. verificar que inicio y fin definan una ventana valida,
         2. recorrer segmentation_output entre inicio y fin,
         3. contar cuantas veces aparece la transicion 3 -> 0,
         4. devolver la cantidad de pasos detectados.
     */
-    (void)registros;
-    (void)inicio;
-    (void)fin;
-    return 0;
+    if (inicio < 0 || fin <= inicio) {
+        return 0;
+    }
+
+    int conteo_pasos = 0;
+
+    // Se recorre hasta (fin - 1) porque evaluamos el elemento i y el i + 1
+    for (int i = inicio; i < fin; i++) {
+        if (registros[i].segmentation_output == 3 && registros[i + 1].segmentation_output == 0) {
+            conteo_pasos++;
+        }
+    }
+
+    return conteo_pasos;
 }
 
 double calcular_velocidad_marcha(int muestras_sync, double fs) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Mauricio Pecci
         1. calcular el tiempo de la ventana Sync:
               tiempo = muestras_sync / fs
         2. usar la distancia util de 6 metros,
@@ -335,9 +345,12 @@ double calcular_velocidad_marcha(int muestras_sync, double fs) {
 
         Mientras no este implementada, devuelve 0.0.
     */
-    (void)muestras_sync;
-    (void)fs;
-    return 0.0;
+    if (muestras_sync <= 0 || fs <= 0.0) {
+        return 0.0;
+    }
+
+    double tiempo_sync = (double)muestras_sync / fs;
+    return DISTANCIA_UTIL_10MWT_M / tiempo_sync;
 }
 
 double calcular_velocidad_pasos(int pasos, int muestras_pasos, double fs) {
