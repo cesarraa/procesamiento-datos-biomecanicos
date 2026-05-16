@@ -240,19 +240,20 @@ int cargar_datos(
 
 void corregir_aceleracion(Datos registros[], int total) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Cesar Ramirez
         1. recorrer todas las muestras,
         2. multiplicar por -1 el valor linear_acceleration_z.
 
         Esta version no modifica nada.
     */
-    (void)registros;
-    (void)total;
+    for (int i = 0; i < total; i++) {
+        registros[i].linear_acceleration_z *= -1.0;
+    }
 }
 
 double calcular_longitud_temporal(int total, double fs) {
     /*
-        Tarea del estudiante:
+        Tarea del estudiante: Cesar Ramirez
         1. verificar que fs sea mayor que cero,
         2. calcular el tiempo total como:
               tiempo = total / fs
@@ -260,9 +261,12 @@ double calcular_longitud_temporal(int total, double fs) {
 
         Mientras no este implementada, devuelve 0.0.
     */
-    (void)total;
-    (void)fs;
-    return 0.0;
+    if (fs > 0.0) {
+        return total / fs;
+    } else {
+        printf("Frecuencia de muestreo inválida! %.3f Hz\n", fs);
+        return 0.0;
+    }
 }
 
 int buscar_indice_primera_sync(const Datos registros[], int total) {
