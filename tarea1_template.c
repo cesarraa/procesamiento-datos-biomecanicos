@@ -67,8 +67,8 @@ int main(int argc, char *argv[]) {
 
     contar_metadatos(carpeta, registros, total);
     leer_campos(carpeta, registros, total);
-    //leer_valores(carpeta, registros, total);
-    //imprimir_metadatos(registros, total);
+    leer_valores(carpeta, registros, total);
+    imprimir_metadatos(registros, total);
 
     return 0;
 }
